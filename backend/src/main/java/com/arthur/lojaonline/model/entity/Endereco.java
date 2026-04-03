@@ -12,17 +12,17 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Enderecos {
+public class Endereco {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "tipo_endereco_id", nullable = false)
     private TipoEndereco tipoEndereco;
 

@@ -1,54 +1,54 @@
 package com.arthur.lojaonline.service.impl;
 
-import com.arthur.lojaonline.dto.request.CategoriasRequest;
-import com.arthur.lojaonline.dto.response.CategoriasResponse;
-import com.arthur.lojaonline.model.entity.Categorias;
-import com.arthur.lojaonline.repository.CategoriasRepository;
-import com.arthur.lojaonline.service.CategoriasService;
+import com.arthur.lojaonline.dto.request.CategoriaRequest;
+import com.arthur.lojaonline.dto.response.CategoriaResponse;
+import com.arthur.lojaonline.model.entity.Categoria;
+import com.arthur.lojaonline.repository.CategoriaRepository;
+import com.arthur.lojaonline.service.CategoriaService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class CategoriasServiceImpl implements CategoriasService {
+public class CategoriaServiceImpl implements CategoriaService {
 
-    private final CategoriasRepository categoriasRepository;
+    private final CategoriaRepository categoriaRepository;
 
-    public CategoriasServiceImpl(CategoriasRepository categoriaRepository) {
-        this.categoriasRepository = categoriaRepository;
+    public CategoriaServiceImpl(CategoriaRepository categoriaRepository) {
+        this.categoriaRepository = categoriaRepository;
     }
 
     @Override
-    public CategoriasResponse criarCategoria(CategoriasRequest request) {
+    public CategoriaResponse criarCategoria(CategoriaRequest request) {
         validarNomeExistente(request.getNome());
 
-        Categorias categoria = new Categorias();
+        Categoria categoria = new Categoria();
         categoria.setNome(request.getNome());
         categoria.setDescricao(request.getDescricao());
         categoria.setAtivo(request.getAtivo() != null ? request.getAtivo() : true);
 
-        categoriasRepository.save(categoria);
+        categoriaRepository.save(categoria);
 
         return converterParaResponse(categoria);
     }
 
     @Override
-    public CategoriasResponse buscarPorId(Long id) {
-        Categorias categoria = categoriasRepository.findById(id)
+    public CategoriaResponse buscarPorId(Long id) {
+        Categoria categoria = categoriaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
         return converterParaResponse(categoria);
     }
 
     @Override
-    public List<CategoriasResponse> listarTodas() {
-        List<Categorias> categorias = categoriasRepository.findAll();
+    public List<CategoriaResponse> listarTodas() {
+        List<Categoria> categorias = categoriaRepository.findAll();
         return categorias.stream().map(this::converterParaResponse).collect(Collectors.toList());
     }
 
     @Override
-    public CategoriasResponse atualizarCategoria(Long id, CategoriasRequest request) {
-        Categorias categoria = categoriasRepository.findById(id)
+    public CategoriaResponse atualizarCategoria(Long id, CategoriaRequest request) {
+        Categoria categoria = categoriaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
 
         if (!categoria.getNome().equals(request.getNome())) {
@@ -59,21 +59,21 @@ public class CategoriasServiceImpl implements CategoriasService {
         categoria.setDescricao(request.getDescricao());
         categoria.setAtivo(request.getAtivo() != null ? request.getAtivo() : categoria.getAtivo());
 
-        categoriasRepository.save(categoria);
+        categoriaRepository.save(categoria);
 
         return converterParaResponse(categoria);
     }
 
     @Override
     public void deletarCategoria(Long id) {
-        if (!categoriasRepository.existsById(id)) {
+        if (!categoriaRepository.existsById(id)) {
             throw new RuntimeException("Categoria não encontrada");
         }
-        categoriasRepository.deleteById(id);
+        categoriaRepository.deleteById(id);
     }
 
-    private CategoriasResponse converterParaResponse(Categorias categoria) {
-        CategoriasResponse response = new CategoriasResponse();
+    private CategoriaResponse converterParaResponse(Categoria categoria) {
+        CategoriaResponse response = new CategoriaResponse();
         response.setId(categoria.getId());
         response.setNome(categoria.getNome());
         response.setDescricao(categoria.getDescricao());
@@ -83,7 +83,7 @@ public class CategoriasServiceImpl implements CategoriasService {
     }
 
     private void validarNomeExistente(String nome) {
-        if (categoriasRepository.existsByNome(nome)) {
+        if (categoriaRepository.existsByNome(nome)) {
             throw new RuntimeException("Já existe uma categoria com o nome: " + nome);
         }
     }

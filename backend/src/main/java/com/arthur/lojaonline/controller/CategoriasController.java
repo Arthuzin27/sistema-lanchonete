@@ -1,8 +1,8 @@
 package com.arthur.lojaonline.controller;
 
-import com.arthur.lojaonline.dto.request.CategoriasRequest;
-import com.arthur.lojaonline.dto.response.CategoriasResponse;
-import com.arthur.lojaonline.service.CategoriasService;
+import com.arthur.lojaonline.dto.request.CategoriaRequest;
+import com.arthur.lojaonline.dto.response.CategoriaResponse;
+import com.arthur.lojaonline.service.CategoriaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,34 +14,34 @@ import java.util.List;
 @RequestMapping("/categorias")
 public class CategoriasController {
 
-    private final CategoriasService categoriaService;
+    private final CategoriaService categoriaService;
 
-    public CategoriasController(CategoriasService categoriaService) {
+    public CategoriasController(CategoriaService categoriaService) {
         this.categoriaService = categoriaService;
     }
 
     @PostMapping
-    public ResponseEntity<CategoriasResponse> criarCategoria(@Valid @RequestBody CategoriasRequest request) {
-        CategoriasResponse response = categoriaService.criarCategoria(request);
+    public ResponseEntity<CategoriaResponse> criarCategoria(@Valid @RequestBody CategoriaRequest request) {
+        CategoriaResponse response = categoriaService.criarCategoria(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<CategoriasResponse>> listarTodas() {
+    public ResponseEntity<List<CategoriaResponse>> listarTodas() {
         return ResponseEntity.ok(categoriaService.listarTodas());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CategoriasResponse> buscarPorId(@PathVariable Long id) {
-        CategoriasResponse response = categoriaService.buscarPorId(id);
+    public ResponseEntity<CategoriaResponse> buscarPorId(@PathVariable Long id) {
+        CategoriaResponse response = categoriaService.buscarPorId(id);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CategoriasResponse> atualizarCategoria(
+    public ResponseEntity<CategoriaResponse> atualizarCategoria(
             @PathVariable Long id,
-            @Valid @RequestBody CategoriasRequest request) {
-        CategoriasResponse response = categoriaService.atualizarCategoria(id, request);
+            @Valid @RequestBody CategoriaRequest request) {
+        CategoriaResponse response = categoriaService.atualizarCategoria(id, request);
         return ResponseEntity.ok(response);
     }
 

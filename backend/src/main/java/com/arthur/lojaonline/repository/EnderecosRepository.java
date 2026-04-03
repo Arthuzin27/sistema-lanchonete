@@ -1,16 +1,16 @@
 package com.arthur.lojaonline.repository;
 
-import com.arthur.lojaonline.model.entity.Enderecos;
+import com.arthur.lojaonline.model.entity.Endereco;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface EnderecosRepository extends JpaRepository<Enderecos, Long>{
+public interface EnderecosRepository extends JpaRepository<Endereco, Long>{
     
-    List<Enderecos> findByClienteId(Long clienteId);
+    List<Endereco> findByClienteId(Long clienteId);
 
-    Optional<Enderecos> findByClienteIdAndPrincipalTrue(Long clienteId);
+    Optional<Endereco> findByClienteIdAndPrincipalTrue(Long clienteId);
 
-    Optional<Enderecos> findByIdAndClienteId(Long id, Long clienteId);
+    Optional<Endereco> findByIdAndClienteId(Long id, Long clienteId);
 }

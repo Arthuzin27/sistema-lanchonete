@@ -2,7 +2,7 @@ package com.arthur.lojaonline.controller;
 
 import com.arthur.lojaonline.dto.request.EnderecosRequest;
 import com.arthur.lojaonline.dto.response.EnderecosResponse;
-import com.arthur.lojaonline.service.EnderecosService;
+import com.arthur.lojaonline.service.EnderecoService;
 
 import jakarta.validation.Valid;
 
@@ -16,9 +16,9 @@ import java.util.List;
 @RequestMapping("/enderecos")
 public class EnderecosController {
 
-    private final EnderecosService enderecosService;
+    private final EnderecoService enderecosService;
 
-    public EnderecosController(EnderecosService enderecosService) {
+    public EnderecosController(EnderecoService enderecosService) {
         this.enderecosService = enderecosService;
     }
 

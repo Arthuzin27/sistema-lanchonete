@@ -3,24 +3,24 @@ package com.arthur.lojaonline.service.impl;
 import com.arthur.lojaonline.dto.request.EnderecosRequest;
 import com.arthur.lojaonline.dto.response.EnderecosResponse;
 import com.arthur.lojaonline.model.entity.Cliente;
-import com.arthur.lojaonline.model.entity.Enderecos;
+import com.arthur.lojaonline.model.entity.Endereco;
 import com.arthur.lojaonline.model.entity.TipoEndereco;
 import com.arthur.lojaonline.repository.ClienteRepository;
 import com.arthur.lojaonline.repository.EnderecosRepository;
 import com.arthur.lojaonline.repository.TipoEnderecoRepository;
-import com.arthur.lojaonline.service.EnderecosService;
+import com.arthur.lojaonline.service.EnderecoService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class EnderecosServiceImpl implements EnderecosService {
+public class EnderecoServiceImpl implements EnderecoService {
 
     private final EnderecosRepository enderecosRepository;
     private final ClienteRepository clienteRepository;
     private final TipoEnderecoRepository tipoEnderecoRepository;
 
-    public EnderecosServiceImpl(EnderecosRepository enderecosRepository,
+    public EnderecoServiceImpl(EnderecosRepository enderecosRepository,
                                 ClienteRepository clienteRepository,
                                 TipoEnderecoRepository tipoEnderecoRepository) {
         this.enderecosRepository = enderecosRepository;
@@ -37,7 +37,7 @@ public class EnderecosServiceImpl implements EnderecosService {
         TipoEndereco tipoEndereco = tipoEnderecoRepository.findById(request.getTipoEnderecoId())
                 .orElseThrow(() -> new RuntimeException("Tipo de endereço não encontrado"));
 
-        Enderecos end = new Enderecos();
+        Endereco end = new Endereco();
         end.setCliente(cliente);
         end.setTipoEndereco(tipoEndereco);
         end.setCep(request.getCep());
@@ -56,7 +56,7 @@ public class EnderecosServiceImpl implements EnderecosService {
 
     @Override
     public EnderecosResponse buscarPorId(Long id) {
-        Enderecos end = enderecosRepository.findById(id)
+        Endereco end = enderecosRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Endereço não encontrado"));
 
         return converterParaResponse(end);
@@ -64,13 +64,13 @@ public class EnderecosServiceImpl implements EnderecosService {
 
     @Override
     public List<EnderecosResponse> listarTodos() {
-        List<Enderecos> enderecos = enderecosRepository.findAll();
+        List<Endereco> enderecos = enderecosRepository.findAll();
         return enderecos.stream().map(this::converterParaResponse).toList();
     }
 
     @Override
     public EnderecosResponse atualizarEnderecos(Long id, EnderecosRequest request) {
-        Enderecos end = enderecosRepository.findById(id)
+        Endereco end = enderecosRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Endereço não encontrado"));
 
         Cliente cliente = clienteRepository.findById(request.getClienteId())
@@ -104,7 +104,7 @@ public class EnderecosServiceImpl implements EnderecosService {
         enderecosRepository.deleteById(id);
     }
 
-    private EnderecosResponse converterParaResponse(Enderecos end) {
+    private EnderecosResponse converterParaResponse(Endereco end) {
         EnderecosResponse response = new EnderecosResponse();
         response.setId(end.getId());
         response.setCep(end.getCep());

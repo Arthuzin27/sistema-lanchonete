@@ -5,7 +5,7 @@ import com.arthur.lojaonline.dto.response.EnderecosResponse;
 
 import java.util.List;
 
-public interface EnderecosService {
+public interface EnderecoService {
     
     EnderecosResponse cadastrarEnderecos(EnderecosRequest request);
 

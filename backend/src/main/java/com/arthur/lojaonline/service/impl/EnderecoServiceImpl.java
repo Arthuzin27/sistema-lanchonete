@@ -6,7 +6,7 @@ import com.arthur.lojaonline.model.entity.Cliente;
 import com.arthur.lojaonline.model.entity.Endereco;
 import com.arthur.lojaonline.model.entity.TipoEndereco;
 import com.arthur.lojaonline.repository.ClienteRepository;
-import com.arthur.lojaonline.repository.EnderecosRepository;
+import com.arthur.lojaonline.repository.EnderecoRepository;
 import com.arthur.lojaonline.repository.TipoEnderecoRepository;
 import com.arthur.lojaonline.service.EnderecoService;
 import org.springframework.stereotype.Service;
@@ -16,11 +16,11 @@ import java.util.List;
 @Service
 public class EnderecoServiceImpl implements EnderecoService {
 
-    private final EnderecosRepository enderecosRepository;
+    private final EnderecoRepository enderecosRepository;
     private final ClienteRepository clienteRepository;
     private final TipoEnderecoRepository tipoEnderecoRepository;
 
-    public EnderecoServiceImpl(EnderecosRepository enderecosRepository,
+    public EnderecoServiceImpl(EnderecoRepository enderecosRepository,
                                 ClienteRepository clienteRepository,
                                 TipoEnderecoRepository tipoEnderecoRepository) {
         this.enderecosRepository = enderecosRepository;

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface EnderecosRepository extends JpaRepository<Endereco, Long>{
+public interface EnderecoRepository extends JpaRepository<Endereco, Long>{
     
     List<Endereco> findByClienteId(Long clienteId);
 

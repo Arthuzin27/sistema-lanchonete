@@ -40,9 +40,4 @@ public class StatusPagamento {
     public void preUpdate() {
         this.dataAtualizacao = LocalDateTime.now();
     }
-
-    public StatusPagamento(String nome, String descricao) {
-        this.nome = nome;
-        this.descricao = descricao;
-    }
 }
